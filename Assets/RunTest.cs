@@ -70,7 +70,7 @@ public class RunTest : MonoBehaviour
 				var end = Time.realtimeSinceStartup;
 				var label = labels[res];
 
-				if (label.Contains("hotdog") && Mathf.Abs(output[res] - 0.935f) < epsilon)
+				if (label.Contains("hotdog") && Mathf.Abs(output[res] - 0.978f) < epsilon)
 				{
 					text.color = Color.green;
 					text.text = $"Success: {labels[res]} {output[res] * 100}%";
