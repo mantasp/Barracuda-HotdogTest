@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+//using Unity.Barracuda;
 using Barracuda;
 using UnityEngine;
 using UnityEngine.Profiling;
@@ -27,6 +28,9 @@ public class RunTest : MonoBehaviour
 	private IWorker engine;
 	private Dictionary<string, Tensor> inputs = new Dictionary<string, Tensor>();
 	private string[] labels;
+	
+	private float averageDt;
+	private float rawAverageDt;
 
 	// Use this for initialization
 	IEnumerator Start ()
@@ -80,8 +84,9 @@ public class RunTest : MonoBehaviour
 					text.color = Color.red;
 					text.text = $"Failed: {labels[res]} {output[res] * 100}%";
 				}
-			
-				Debug.Log($"frametime = {(end - start)*1000f}ms");
+
+				UpdateAverage(end - start);
+				Debug.Log($"frametime = {(end - start)*1000f}ms, average = {averageDt * 1000}ms");
 			
 				
 			}
@@ -109,6 +114,17 @@ public class RunTest : MonoBehaviour
 		result.Apply();
 
 		return result;
+	}
+
+	private void UpdateAverage(float newValue)
+	{
+		rawAverageDt = rawAverageDt * 0.9f + 0.1f * newValue;
+		
+		// Drop spikes above 20%
+		if (newValue < 1.2f * rawAverageDt)
+		{
+			averageDt = averageDt * 0.9f + 0.1f * newValue;
+		}
 	}
 
 	private void OnDestroy()
