@@ -39,7 +39,7 @@ public class RunTest : MonoBehaviour
 		
 		labels = labelsAsset.text.Split('\n');
 		model = ModelLoader.Load(srcModel, false);
-		engine = WorkerFactory.CreateWorker(useGPU ? WorkerFactory.Type.ComputePrecompiled : WorkerFactory.Type.CSharp, model, false);
+		engine = WorkerFactory.CreateWorker(model, useGPU ? WorkerFactory.Device.GPU : WorkerFactory.Device.CPU);
 		
 		var input = new Tensor(PrepareTextureForInput(inputImage, !useGPU), 3);
 		
