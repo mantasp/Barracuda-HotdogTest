@@ -109,7 +109,7 @@ public class RunTest : MonoBehaviour
 		if (!needsCPUcopy)
 			return targetRT;
 		
-		var  result = new Texture2D(targetRT.width, targetRT.height);
+		var  result = new Texture2D(targetRT.width, targetRT.height, TextureFormat.RGB24, false);
 		result.ReadPixels(new Rect(0,0, targetRT.width, targetRT.height), 0, 0);
 		result.Apply();
 
