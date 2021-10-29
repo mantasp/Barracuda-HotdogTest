@@ -77,16 +77,16 @@ public class RunTest : MonoBehaviour
 				if (label.Contains("hotdog") && Mathf.Abs(output[res] - 0.978f) < epsilon)
 				{
 					text.color = Color.green;
-					text.text = $"Success: {labels[res]} {output[res] * 100}%";
+					text.text = $"Success: {averageDt * 1000} {labels[res]} {output[res] * 100}%";
 				}
 				else
 				{
 					text.color = Color.red;
-					text.text = $"Failed: {labels[res]} {output[res] * 100}%";
+					text.text = $"Failed: {averageDt * 1000} {labels[res]} {output[res] * 100}%";
 				}
 
 				UpdateAverage(end - start);
-				Debug.Log($"frametime = {(end - start)*1000f}ms, average = {averageDt * 1000}ms");
+				//Debug.Log($"frametime = {(end - start)*1000f}ms, average = {averageDt * 1000}ms");
 			
 				
 			}
